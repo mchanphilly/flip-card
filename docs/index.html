@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Flip Card Component Spec</title>
+</head>
+<body>
+    <header>
+        <h1>Flip Card Component Spec</h1>
+        <nav>
+            <ol>
+                <li><a href="#overview">Overview</a></li>
+                <li>
+                    <a href="#api">API Details</a>
+                    <ol>
+                        <li><a href="#html">HTML</a></li>
+                        <li><a href="#css">CSS</a></li>
+                        <li><a href="#javascript">JavaScript</a></li>
+                    </ol>
+                </li>
+            </ol>
+        </nav>
+    </header>
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>
+                The Flip Card Component is for web designers who wish to be able to easily
+                "flip" between one element or another. The flipping visually emulates the real-life
+                flipping of a card.
+            </p>
+            <p>
+                Although currently designed only for flipping between elements of the same
+                box size, I expect to later expand it to flipping between arbitrarily sized
+                elements. And all the internals of the two elements are able to be styled as 
+                normal.
+            </p>
+            <p>
+                Another thing not-yet supported is the ability to make whole-element clickable 
+                links, as doing so would remove the ability to click to flip. Use at your own 
+                caution.
+            </p>
+
+
+
+        </section>
+        <section id="api">
+            <h2>API Details</h2>
+            <section id="html">
+                <h3>HTML</h3>
+                <p>
+                    The component will accept exactly two element children with defined boundaries.
+                    Future iterations may include support for a higher (or arbitrary) number of children, 
+                    but for now the component is meant to represent actual 2D card-style flipping.
+                </p>
+                    <!-- 
+                    <flip-card card="0">
+                        <article>
+                            <p>Hello!</p>
+                        </article>
+                        <article>
+                            <p>Goodbye!</p>
+                        </article>
+                    </flip-card>
+                    -->
+                <pre><code>
+&ltflip-card card="0">
+    &ltarticle>
+        &ltp>Hello!&lt/p>
+    &lt/article>
+    &ltarticle>
+        &ltp>Goodbye!&lt/p>
+    &lt/article>
+&lt/flip-card>
+                </code></pre>
+                <p>
+                    Note that the initial <code>card="0"</code> attribute is optional for the designer. By 
+                    default, the component will assume the card is starting on the first element, but 
+                    after the first flip, the <code>card</code> attribute will begin reflecting which 
+                    card is currently shown.
+                </p>
+            </section>
+            <section id="css">
+                <h3>CSS</h3>
+                <p>
+                    The component accepts styling for the speed and direction of the flip through CSS properties.
+                </p>
+<!-- 
+flip-card {
+    speed: 50ms;  // <time>; by default 100ms
+    direction: right;  // left | right | up | down; by default right
+}
+ -->
+<pre><code>
+flip-card {
+    speed: 50ms;  // &lttime>; by default 100ms
+    direction: right;  // left | right | up | down; by default right
+}
+</code></pre>
+
+                <p>
+                    By default, <code>speed</code> and <code>direction</code> can take one argument (which will
+                    be used for both flipping to the second side and flipping back) but two arguments can be 
+                    given for asymmetric flipsi.
+                </p>
+<pre><code>
+flip-card {
+    speed: 50ms, 500ms
+    direction: right, left
+}
+</code></pre>
+                <p>
+                    The two internal elements can be styled normally by the designer.
+                </p>
+            </section>
+            <section id="javascript">
+                <h3>JavaScript</h3>
+                <p>
+                    The component can be flipped in JavaScript through modifying the
+                    attribute-property <code>card</code>, with value <code>0</code>
+                    for the first side or the vaule <code>1</code> for the second side.
+                    Changes made through JavaScript will be reflected in the HTML, and vice-versa.
+                    By default, the component has implicit <code>card=0</code>.
+                </p>
+                <p>
+                    For example, take a JavaScript element <code>exampleCard</code>.
+                </p>
+                <p>
+                    <code>exampleCard.card = 0</code> either does nothing if already on 
+                    the first side, or performs a flip if previously on the other side.
+                </p>
+                <h4>Events</h4>
+                <p>
+                    Upon flipping, the component will dispatch a <code>flip</code> DOM event
+                    that contains the new side (<code>0</code> or <code>1</code>) in the <code>evt.detail</code>.
+                </p>
+            </section>
+        </section>
+    </main>
+</body>
+</html>

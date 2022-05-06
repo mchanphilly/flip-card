@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/demo.css">
+    <title>Flip Card Component Demo</title>
+</head>
+<body>
+    <header>
+        <h1>Flip Card Component Demo</h1>
+        <nav>
+            <ol>
+                <li><a href="#overview">Overview</a></li>
+                <li>
+                    <a href="#examples">Examples</a>
+                </li>
+            </ol>
+        </nav>
+    </header>
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>
+                For API details, please go to <a href="../docs/index.html">the documentation</a>.
+            </p>
+            <p>
+                The Flip Card Component is for web designers who wish to be able to easily
+                "flip" between one element or another. The flipping visually emulates the real-life
+                flipping of a card.
+            </p>
+            <p>
+                Although currently designed only for flipping between elements of the same
+                box size, I expect to later expand it to flipping between arbitrarily sized
+                elements. And all the internals of the two elements are able to be styled as 
+                normal.
+            </p>
+            <p>
+                Another thing not-yet supported is the ability to make whole-element clickable 
+                links, as doing so would remove the ability to click to flip. Use at your own 
+                caution.
+            </p>
+        </section>
+        <section id="examples">
+            <h2>Examples</h2>
+            <section id="minimal">
+                <h3>Minimal</h3>
+                <p>
+                    Here is a basic, minimal example that uses two <code>div</code> elements 
+                    with the same height and width but different shades of gray.
+                </p>
+
+                <article class="demo" id="minimal-demo">
+                    <flip-card>
+                        <div id="minimal-first"></div>
+                        <div id="minimal-second"></div>
+                    </flip-card>
+                </article>
+
+            </section>
+            <section id="basic">
+                <h3>Basic</h3>
+                <p>
+                    Here is a simple example that emulates a flashcard with a word and definition.
+                </p>
+
+                <article class="demo" id="basic-demo">
+                    <flip-card>
+                        <section id="basic-first">
+                            <em>Potato</em>
+                        </section>
+                        <section id="basic-second">
+                            <p>
+                                A vegetable that grows underground.
+                            </p>
+                        </section>
+                    </flip-card>
+                </article>
+
+            </section>
+            <section id="styling">
+                <h3>Flip Styling</h3>
+                <p>
+                    The component accepts styling for the speed and direction of the flip through CSS properties.
+                </p>
+                <p>
+                    It works through the following CSS:
+                </p>
+                <pre><code>
+#first-card: {
+    speed: 50ms;
+    direction: right;
+}
+
+#second-card: {
+    speed: 500ms;
+    direction: left;
+}
+                </code></pre>
+
+            <article class="demo" id="styling-demo">
+                <flip-card id="styling-card">
+                    <p>
+                        Click me to flip fast and to the right.
+                    </p>
+                    <p>
+                        Click me to flip slowly and to the left.
+                    </p>
+                </flip-card>
+            </article>
+
+            </section>
+            <section id="javascript">
+                <h3>JavaScript Support</h3>
+                <p>
+                    This example shows the filp card flipping through JavaScript. Press the button 
+                    to trigger the flipping of the adjacent card.
+                </p>
+                <p>
+                    This example operates by putting a listener on the button that triggers the card's 
+                    flip.
+                </p>
+                
+            <article class="demo" id="javascript-demo">
+                <button id="flip-button">Flip card</button>
+                <flip-card id="button-card">
+                    <p>Unflipped</p>
+                    <p>Flipped</p>
+                </flip-card>
+            </article>
+
+            </section>
+            <section id="chaining">
+                <h3>Chaining Flip</h3>
+                <p>
+                    Note that the flipping of one card can act as the trigger for the flipping of
+                    another card. Flip one card to flip the cards on its right.
+                </p>
+
+            <article class="demo" id="chaining-demo">
+                <flip-card>
+                    <p>Hmmm</p>
+                    <p>Woah!</p>
+                </flip-card>
+                <flip-card>
+                    <p>Hmmm</p>
+                    <p>Woah!</p>
+                </flip-card>
+                <flip-card>
+                    <p>Hmmm</p>
+                    <p>Woah!</p>
+                </flip-card>
+            </article>
+            </section>
+        </section>
+    </main>
+</body>
+</html>

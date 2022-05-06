@@ -10,5 +10,5 @@ Please see the [demo page][demos] to see the component in action.
 The component is of the form `<flip-card>` and takes two HTML elements. Please see the [documentation][docs] for more info.
 
 
-[docs]: 
-[demos]:
+[docs]: https://mchanphilly.github.io/flip-card/docs/
+[demos]: https://mchanphilly.github.io/flip-card/

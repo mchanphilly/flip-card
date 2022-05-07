@@ -19,8 +19,7 @@ class FlipCard extends HTMLElement {
     }
 
     set side(s) {
-        this.#side = s;
-        this.setAttribute("side", s);
+        if (this.#side != s) this.flip();
     }
 
     static get observedAttributes() {
@@ -42,17 +41,6 @@ class FlipCard extends HTMLElement {
         children[back].setAttribute("hidden", "")
         children[front].removeAttribute("hidden");
     }
-
-
-    // #getFront() {
-    //     return this.children[0];
-    // }
-
-    // #getBack() {
-    //     return this.children[1];
-    // }
-
-
 }
 
 customElements.define("flip-card", FlipCard);

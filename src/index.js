@@ -8,6 +8,10 @@ class FlipCard extends HTMLElement {
 
         this.children[1 - this.#side].setAttribute("hidden", "");
         console.log(`Constructed card with side ${this.#side}`);
+
+        this.addEventListener("click", (e) => {
+            this.flip();
+        })
     }
 
     get side() {
@@ -35,7 +39,7 @@ class FlipCard extends HTMLElement {
         let children = this.children;
 
         this.setAttribute("side", front);
-        children[back].setAttribute("hidden", "");
+        children[back].setAttribute("hidden", "")
         children[front].removeAttribute("hidden");
     }
 

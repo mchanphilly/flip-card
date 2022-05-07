@@ -3,7 +3,11 @@ article.demo {
     max-width: 80%;
 }
 
-flip-card > :is(:first-child, :nth-child(2)) {
+flip-card > *[hidden] {
+    display: hidden;
+}
+
+flip-card > :is(:first-child, :nth-child(2)):not([hidden]) {
     display: block;
     width: 300px;
     height: 300px;

@@ -40,11 +40,15 @@ class FlipCard extends HTMLElement {
         this.setAttribute("side", front);
         children[back].setAttribute("hidden", "")
         children[front].removeAttribute("hidden");
+
+        const event = new CustomEvent("flip", {detail: front});  // new side
+        this.dispatchEvent(event);
     }
 }
 
 customElements.define("flip-card", FlipCard);
+// card.addEventListener("flip", (e) => {
+//     console.log("listened", e, e.detail);
+// })
 
 console.log(card);
-card.flip();
-card.flip();

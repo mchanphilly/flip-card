@@ -1,6 +1,20 @@
 article.demo {
+    display: block;
+    width: 300px;
+    height: 300px;
     background-color: #EEEEEE;
-    max-width: 80%;
+    /* max-width: 80%; */
+    perspective: 600px;
+    position: relative;
+}
+
+flip-card {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
 }
 
 flip-card > *[hidden] {
@@ -11,6 +25,8 @@ flip-card > :is(:first-child, :nth-child(2)):not([hidden]) {
     display: block;
     width: 300px;
     height: 300px;
+    position: absolute;
+    backface-visibility: hidden;
 }
 
 flip-card > :first-child {
@@ -19,6 +35,11 @@ flip-card > :first-child {
 
 flip-card > :nth-child(2) {
     background-color: #AAFFFF;
+    transform: rotateY(180deg);
+}
+
+flip-card.flipped {
+    transform: rotateY(180deg); 
 }
 
 /* article#chaining-demo {

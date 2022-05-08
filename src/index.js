@@ -6,7 +6,7 @@ class FlipCard extends HTMLElement {
         let side = this.getAttribute("side");
         this.#side = (side === null) ? 0: side;
 
-        this.children[1 - this.#side].setAttribute("hidden", "");
+        // this.children[1 - this.#side].setAttribute("hidden", "");
         console.log(`Constructed card with side ${this.#side}`);
 
         this.addEventListener("click", (e) => {
@@ -35,11 +35,13 @@ class FlipCard extends HTMLElement {
         let front = this.#side = 1 - this.#side;
         console.log(`Flipped to ${this.#side}`);
 
-        let children = this.children;
 
-        this.setAttribute("side", front);
-        children[back].setAttribute("hidden", "")
-        children[front].removeAttribute("hidden");
+        this.classList.toggle("flipped");
+        // let children = this.children;
+
+        // this.setAttribute("side", front);
+        // children[back].setAttribute("hidden", "")
+        // children[front].removeAttribute("hidden");
 
         const event = new CustomEvent("flip", {detail: front});  // new side
         this.dispatchEvent(event);

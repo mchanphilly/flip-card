@@ -32,6 +32,6 @@ flip-card > :nth-child(2) {
     transform: rotateY(180deg);
 }
 
-flip-card.flipped {
+flip-card[side="1"] {
     transform: rotateY(180deg); 
 }

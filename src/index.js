@@ -35,13 +35,7 @@ class FlipCard extends HTMLElement {
         let front = this.#side = 1 - this.#side;
         console.log(`Flipped to ${this.#side}`);
 
-
-        this.classList.toggle("flipped");
-        // let children = this.children;
-
-        // this.setAttribute("side", front);
-        // children[back].setAttribute("hidden", "")
-        // children[front].removeAttribute("hidden");
+        this.setAttribute("side", front);
 
         const event = new CustomEvent("flip", {detail: front});  // new side
         this.dispatchEvent(event);

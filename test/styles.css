@@ -2,36 +2,17 @@ article.demo {
     width: fit-content;
     height: fit-content;
     background-color: #EEEEEE;
-    perspective: 600px;
 }
 
-flip-card {
-    display: block;
-    transition: transform 700ms;
-    transform-style: preserve-3d;
-    cursor: pointer;
-    /* Idiomatic way to prevent weird margin behavior on card faces */
-}
-
-flip-card > :is(:first-child, :nth-child(2)):not([hidden]) {
-    display: block;
-    width: 300px;
-    height: 300px;
-    backface-visibility: hidden;
-    padding-top: 1px;
-    margin-top: -1px;
+flip-card > div {
+    width: 200px;
+    height: 200px;
 }
 
 flip-card > :first-child {
     background-color: #FFAAAA;
-    position: absolute;
 }
 
 flip-card > :nth-child(2) {
     background-color: #AAFFFF;
-    transform: rotateY(180deg);
-}
-
-flip-card[side="1"] {
-    transform: rotateY(180deg); 
 }

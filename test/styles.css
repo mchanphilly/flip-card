@@ -10,6 +10,7 @@ flip-card {
     transition: transform 700ms;
     transform-style: preserve-3d;
     cursor: pointer;
+    /* Idiomatic way to prevent weird margin behavior on card faces */
 }
 
 flip-card > :is(:first-child, :nth-child(2)):not([hidden]) {
@@ -17,6 +18,8 @@ flip-card > :is(:first-child, :nth-child(2)):not([hidden]) {
     width: 300px;
     height: 300px;
     backface-visibility: hidden;
+    padding-top: 1px;
+    margin-top: -1px;
 }
 
 flip-card > :first-child {

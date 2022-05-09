@@ -23,24 +23,23 @@ class FlipCard extends HTMLElement {
         const movable = document.createElement("article");
         movable.id = "movable";
 
+        const slot = document.createElement("slot");
         const fallback = '<div>Slot error</div>';
+        slot.innerHTML = fallback;
+        movable.appendChild(slot);
 
         // Construct the faces
-        for (let i = 0; i < 2; i++) {
-            const face = document.createElement("section")
-            face.classList.add("face");
+        // for (let i = 0; i < 2; i++) {
+        //     const face = document.createElement("section")
+        //     face.classList.add("face");
 
-            const slot = document.createElement("slot");
-            slot.name = i;
-            slot.innerHTML = fallback;
+        //     // this.children[i].setAttribute("slot", i);
 
-            this.children[i].setAttribute("slot", i);
+        //     // face.appendChild(slot);
 
-            face.appendChild(slot);
-
-            // face.appendChild(this.children[0]);  // 0 because the list mutates; so this is like a pop.
-            movable.appendChild(face);
-        }
+        //     // face.appendChild(this.children[0]);  // 0 because the list mutates; so this is like a pop.
+        //     // movable.appendChild(face);
+        // }
 
         frame.appendChild(movable);
         this.shadowRoot.appendChild(frame);
@@ -59,7 +58,7 @@ class FlipCard extends HTMLElement {
                 cursor: pointer;
             }
 
-            :host .face {
+            :host ::slotted(*) {
                 display: block;
                 width: 100%;
                 height: 100%;
@@ -69,11 +68,11 @@ class FlipCard extends HTMLElement {
                 backface-visibility: hidden;
             }
 
-            :host .face:first-child {
+            :host ::slotted(:first-child) {
                 position: absolute;
             }
 
-            :host .face:nth-child(2) {
+            :host ::slotted(:nth-child(2)) {
                 transform: rotateY(180deg);
             }
 

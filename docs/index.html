@@ -21,6 +21,7 @@
                         <li><a href="#javascript">JavaScript</a></li>
                     </ol>
                 </li>
+                <li><a href="#code">Code</a></li>
             </ol>
         </nav>
     </header>
@@ -57,7 +58,7 @@
                 <p>
                     The component will accept exactly two element children with defined boundaries.
                     Future iterations may include support for a higher (or arbitrary) number of children, 
-                    but for now the component is meant to represent actual 2D card-style flipping.
+                    but for now the component is meant to represent actual 2D card-style flipping. Here's a simple example:
                 </p>
                     <!-- 
                     <flip-card card="0">
@@ -83,8 +84,14 @@
                     Note that the initial <code>card="0"</code> attribute is optional for the designer. By 
                     default, the component will assume the card is starting on the first element, but 
                     after the first flip, the <code>card</code> attribute will begin reflecting which 
-                    card is currently shown.
+                    card is currently shown. The <em>minimal</em> example is this:
                 </p>
+                <pre><code>
+&ltflip-card>
+    &ltdiv>
+    &ltdiv>
+&lt/flip-card>
+                </code></pre>
             </section>
             <section id="css">
                 <h3>CSS</h3>
@@ -141,6 +148,119 @@ flip-card {
                     that contains the new side (<code>0</code> or <code>1</code>) in the <code>evt.detail</code>.
                 </p>
             </section>
+        </section>
+        <section id="code">
+            <h2>Code</h2>
+            <p>
+                Copy the below into the <code>&lt;head&gt;</code> of your HTML file to use:
+            </p>
+<pre><code>
+&lt;script type="module"&gt;
+    export class FlipCard extends HTMLElement {
+        #side;
+
+        constructor() {
+            super();
+            let side = this.getAttribute("side");
+            this.#side = (side === null) ? 0: side;
+
+            // this.children[1 - this.#side].setAttribute("hidden", "");
+            console.log(`Constructed card with side ${this.#side}`);
+
+            this.addEventListener("click", (e) =&gt; {
+                this.flip();
+            })
+
+            this.#buildShadow();
+        }
+
+        #buildShadow() {
+            this.attachShadow({mode: "open"});
+
+            // Frame of the animation
+            const frame = document.createElement("article");
+            frame.id = "frame";
+
+            // The actual movable object inside this flip-card frame
+            const movable = document.createElement("article");
+            movable.id = "movable";
+
+            const slot = document.createElement("slot");
+            const fallback = '&lt;div&gt;Slot error&lt;/div&gt;';
+            slot.innerHTML = fallback;
+            movable.appendChild(slot);
+
+            frame.appendChild(movable);
+            this.shadowRoot.appendChild(frame);
+            this.shadowRoot.innerHTML +=
+            `&lt;style&gt;
+                :host #frame {
+                    width: fit-content;
+                    height: fit-content;
+                    perspective: 600px;
+                }
+
+                :host #movable {
+                    display: block;
+                    transition: transform 700ms;
+                    transform-style: preserve-3d;
+                    cursor: pointer;
+                }
+
+                :host ::slotted(*) {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    /* Idiomatic way to prevent weird margin behavior on card faces */
+                    padding-top: 1px;
+                    margin-top: -1px;
+                    backface-visibility: hidden;
+                }
+
+                :host ::slotted(:first-child) {
+                    position: absolute;
+                }
+
+                :host ::slotted(:nth-child(2)) {
+                    transform: rotateY(180deg);
+                }
+
+                :host #movable[side="1"] {
+                    transform: rotateY(180deg); 
+                }
+            &lt;/style&gt;`
+        }
+
+        get side() {
+            return this.#side;
+        }
+
+        set side(s) {
+            if (this.#side != s) this.flip();
+        }
+
+        static get observedAttributes() {
+            return ["side"];
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+            if (name === "side") this.#side = newValue;
+        }
+
+        flip() {
+            let front = this.#side = 1 - this.#side;
+            console.log(`Flipped to ${this.#side}`);
+
+            this.setAttribute("side", front);
+            this.shadowRoot.querySelector("#movable").setAttribute("side", front);
+
+            const event = new CustomEvent("flip", {detail: front});  // new side
+            this.dispatchEvent(event);
+        }
+    }
+    customElements.define("flip-card", FlipCard);
+&lt;/script&gt;
+</code></pre>
         </section>
     </main>
 </body>

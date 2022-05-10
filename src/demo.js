@@ -1,4 +1,4 @@
-import "../FlipCard.js";
+import "flip-card/src/FlipCard.js";
 
 // JavaScript Demo
 let button = document.querySelector("#javascript-demo button");

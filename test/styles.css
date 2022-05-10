@@ -16,3 +16,8 @@ flip-card > :first-child {
 flip-card > :nth-child(2) {
     background-color: #AAFFFF;
 }
+
+flip-card {
+    animation-duration: 400ms;
+    direction: left;
+}
